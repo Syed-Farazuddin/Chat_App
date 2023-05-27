@@ -11,6 +11,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../features/themeSlice";
 
 const Sidebar = (props) => {
+  const [light, setLight] = useState(true);
+  const [dark, setDark] = useState(false);
+  const lightThemeHandler = () => {
+    props.setLightTheme(true);
+    props.setDarkTheme(false);
+    setDark(false);
+    setLight(true);
+
+    // console.log(`light theme on`);
+  };
+  const darkThemeHandler = () => {
+    props.setDarkTheme(true);
+    props.setLightTheme(false);
+    setDark(true);
+    setLight(false);
+
+    // console.log(`dark mode on dark : true`);
+  };
+
   const navigate = useNavigate();
   const [peoples] = useState([
     { name: "Varun", lastMessage: "Good bye", timeStamp: "9:24PM" },
@@ -19,18 +38,23 @@ const Sidebar = (props) => {
   ]);
   const lightTheme = useSelector((state) => state.themeKey);
   // const [theme, ] = useState(lightTheme);
-  console.log("THe console is busy " + lightTheme);
+
   const dispatch = useDispatch();
   return (
     <div className="sidebar_container">
       <div
-        className={"sidebar_header " + (lightTheme ? "dark_theme" : "")}
+        className={"sidebar_header "}
         // id="sidebar_header"
+        style={{ backgroundColor: props.activeBg, color: props.fontColor }}
       >
         <div>
           <IconButton>
             <AccountCircleIcon
-              className={"icon " + (lightTheme ? "dark_theme" : "")}
+              className={"icon "}
+              style={{
+                backgroundColor: props.activeBg,
+                color: props.fontColor,
+              }}
             />
           </IconButton>
         </div>
@@ -38,20 +62,30 @@ const Sidebar = (props) => {
         <div>
           <IconButton>
             <PersonAddIcon
-              className={"icon " + (lightTheme ? "dark_theme" : "")}
+              className={"icon "}
+              style={{
+                backgroundColor: props.activeBg,
+                color: props.fontColor,
+              }}
             />
           </IconButton>
           <IconButton>
             <AddCircleIcon
-              className={"icon " + (lightTheme ? "dark_theme" : "")}
+              className={"icon "}
+              style={{
+                backgroundColor: props.activeBg,
+                color: props.fontColor,
+              }}
             />
           </IconButton>
-          {lightTheme ? (
+          {/* {lightTheme ? (
             <IconButton>
               <LightModeIcon
                 className={"icon " + (lightTheme === true ? "dark_theme" : "")}
                 onClick={() => {
-                  dispatch(toggleTheme());
+                  // dispatch(toggleTheme());
+                  darkThemeHandler();
+                  console.log(`dark mode on`);
                 }}
               />
             </IconButton>
@@ -61,15 +95,48 @@ const Sidebar = (props) => {
                 className={"icon " + (lightTheme === true ? "dark_theme" : "")}
                 onClick={() => {
                   dispatch(toggleTheme);
+                  console.log(`dark mode off`);
                 }}
               />
             </IconButton>
-          )}
+          )} */}
+          <IconButton>
+            <NightlightRoundIcon
+              className={"icon "}
+              onClick={darkThemeHandler}
+              style={{
+                display: light
+                  ? "inline-block"
+                  : dark
+                  ? "none"
+                  : "inline-block",
+              }}
+            />
+          </IconButton>
+          <IconButton>
+            <LightModeIcon
+              className={"icon "}
+              onClick={lightThemeHandler}
+              style={{
+                display: dark
+                  ? "inline-block"
+                  : light
+                  ? "none"
+                  : "inline-block",
+              }}
+            />
+          </IconButton>
         </div>
       </div>
-      <div className={"sidebar_search " + (lightTheme ? "dark_theme" : "")}>
+      <div
+        className={"sidebar_search "}
+        style={{ backgroundColor: props.activeBg, color: props.fontColor }}
+      >
         <IconButton>
-          <SearchIcon className={"icon " + (lightTheme ? "dark_theme" : "")} />
+          <SearchIcon
+            className={"icon "}
+            style={{ backgroundColor: props.activeBg, color: props.fontColor }}
+          />
         </IconButton>
         <input
           type="text"
@@ -82,18 +149,29 @@ const Sidebar = (props) => {
         />
       </div>
       <div
-        className={"sidebar_conversations " + (lightTheme ? "dark_theme" : "")}
+        className={"sidebar_conversations "}
+        style={{ backgroundColor: props.activeBg, color: props.fontColor }}
       >
         {peoples.map((chatItems) => {
           return (
             <div
               // className="conversation_container"
-              className={
-                "conversation_container " + (lightTheme ? "dark_theme" : "")
-              }
+              className={"conversation_container "}
+              style={{
+                backgroundColor: props.activeBg,
+                color: props.fontColor,
+              }}
               onClick={() => navigate("chat")}
             >
-              <p className="conversation_icon">{chatItems.name[0]}</p>
+              <p
+                className="conversation_icon"
+                style={{
+                  backgroundColor: props.activeBg,
+                  color: props.fontColor,
+                }}
+              >
+                {chatItems.name[0]}
+              </p>
               <p className="conversation_title">{chatItems.name}</p>
               <p className="conversation_message">{chatItems.lastMessage}</p>
               <p className="conversation_time">{chatItems.timeStamp}</p>
