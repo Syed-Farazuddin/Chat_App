@@ -260,8 +260,8 @@ body {
 /* Theme Switching  */
 
 .dark_theme {
-  background-color: #2d3941 !important;
-  color: white !important;
+  background-color: #2d3941;
+  color: white;
 }
 
 .icon {

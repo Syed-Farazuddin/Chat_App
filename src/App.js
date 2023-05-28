@@ -7,19 +7,20 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 function App() {
   const [sidebar, setSidebar] = useState(false);
-  const [theme, setTheme] = useState("light");
+  const [lightTheme, setLightTheme] = useState(true);
+  const [darkTheme, setDarkTheme] = useState(false);
   return (
     <Router>
       <div>
-        {sidebar === false ? null : <Sidebar theme={theme} />}
+        {sidebar === false ? null : <Sidebar />}
         <Routes>
-          <Route path="/" element={<Login theme={theme} />} />
+          <Route path="/" element={<Login />} />
 
-          <Route path="/welcome" element={<Welcome theme={theme} />} />
+          <Route path="/welcome" element={<Welcome />} />
 
-          <Route path="/welcome/chat" element={<Chatbox theme={theme} />} />
+          <Route path="/welcome/chat" element={<Chatbox />} />
 
-          <Route path="/chat" element={<Chatbox theme={theme} />} />
+          <Route path="/chat" element={<Chatbox />} />
         </Routes>
       </div>
     </Router>
